@@ -1,2 +1,6 @@
-texts/
+texts/*
+!texts/171.txt
+
 videos/
+
+repo_personal/
