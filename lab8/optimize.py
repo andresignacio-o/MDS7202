@@ -80,7 +80,13 @@ def optimize_model(X_train, y_train, X_valid, y_valid, experiment_name=None, n_t
             mlflow.log_params(params)
 
             model = XGBClassifier(**params)
-            model.fit(X_train, y_train, eval_set=[(X_valid, y_valid)], verbose=False, early_stopping_rounds=30)
+            model.set_params(callbacks=[XGBClassifier.callback.EarlyStopping(rounds=10)])
+            model.fit(
+                X_train, 
+                y_train, 
+                eval_set=[(X_valid, y_valid)], 
+                verbose=False, 
+            )
 
             if avg == "binary":
                 y_prob = model.predict_proba(X_valid)[:, 1]
@@ -145,7 +151,7 @@ def optimize_model(X_train, y_train, X_valid, y_valid, experiment_name=None, n_t
 # Ejecutable simple (dataset sintético para probar que corre)
 if __name__ == "__main__":
     print("[MAIN] Generando datos de ejemplo (puedes reemplazar por tus splits reales)…")
-    X, y = make_classification(n_samples=2000, n_features=20, n_informative=8,
+    X, y = make_classification(n_samples=500, n_features=20, n_informative=8,
                                n_redundant=4, random_state=42)
     X_tr, X_v, y_tr, y_v = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
 
