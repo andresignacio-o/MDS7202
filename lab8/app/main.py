@@ -32,7 +32,7 @@ MODEL_LOCAL_PATH = os.getenv("MODEL_LOCAL_PATH")
 MLFLOW_URI = os.getenv("MLFLOW_TRACKING_URI")
 
 BASE_DIR = Path(__file__).resolve().parent
-DEFAULT_TRACKING_URI = f"file://{(BASE_DIR / 'mlruns').resolve()}"
+DEFAULT_TRACKING_URI = (BASE_DIR / 'mlruns').resolve().as_uri()
 
 if not MLFLOW_URI:
     # Aseguramos misma ubicación local que optimize.py

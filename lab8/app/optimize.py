@@ -28,7 +28,7 @@ def get_best_model(experiment_id):
 BASE_DIR = Path(__file__).resolve().parent
 MLRUNS_DIR = BASE_DIR / "mlruns"
 MLRUNS_DIR.mkdir(exist_ok=True)
-mlflow.set_tracking_uri(f"file://{MLRUNS_DIR.resolve()}")
+mlflow.set_tracking_uri(MLRUNS_DIR.resolve().as_uri())
 
 
 def _log_versions():
