@@ -1,5 +1,5 @@
 # hiring_functions.py
-
+import os
 from pathlib import Path
 import pandas as pd
 # Módulos de Scikit-learn
@@ -12,31 +12,31 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, f1_score
 import joblib # Para guardar y cargar el modelo entrenado
 import gradio as gr # Para la interfaz de usuario
+from airflow.exceptions import AirflowException
 
 # --------------------------------------------------------------------------------------
 def create_folders(**kwargs):
-    """
-    Función responsable de crear una estructura de directorios basada en la fecha de ejecución del DAG.
-    """
-    # Se extrae la fecha de ejecución del DAG utilizando la clave 'ds' de los argumentos.
-    execution_date = kwargs['ds']
+    # Airflow pasa 'ds' (la fecha de la ejecución) como un argumento
+    execution_date_str = kwargs.get('ds')
+    
+    if not execution_date_str:
+        raise AirflowException("Missing 'ds' argument in context.")
 
-    # Se establece la ruta base de la carpeta utilizando la fecha de ejecución.
-    base_path = Path(execution_date)
+    # 1. Definir la RUTA BASE absoluta
+    # Esto apunta a /opt/airflow, donde se ejecuta el DAG
+    airflow_home = os.environ.get('AIRFLOW_HOME', '/opt/airflow') 
+    
+    # 2. Definir la RUTA RAW ABSOLUTA
+    raw_path = Path(airflow_home) / execution_date_str / "raw"
+    
+    # 3. Crear el directorio (y todos sus padres si no existen)
+    raw_path.mkdir(parents=True, exist_ok=True) 
+    
+    # Opcionalmente, crea las otras carpetas (splits, models) de manera similar
+    Path(airflow_home) / "splits".mkdir(parents=True, exist_ok=True)
+    Path(airflow_home) / "models".mkdir(parents=True, exist_ok=True)
 
-    # Se definen los nombres de las subcarpetas requeridas.
-    subfolders = ['raw', 'splits', 'models']
-
-    # Se construye la lista de rutas completas a crear mediante una list comprehension.
-    paths_to_create = [base_path / subfolder for subfolder in subfolders]
-
-    # Se emplea la función 'map' para crear todos los directorios de forma funcional.
-    # 'parents=True' garantiza la creación de la carpeta base (fecha).
-    # 'exist_ok=True' previene errores si la carpeta ya existe, eludiendo la necesidad de 'if'.
-    list(map(lambda p: p.mkdir(parents=True, exist_ok=True), paths_to_create))
-
-    # Se notifica el resultado de la operación.
-    return f"Estructura de carpetas creada con éxito en ./{execution_date}"
+    print(f"Created folder: {raw_path}")
 
 # --------------------------------------------------------------------------------------
 

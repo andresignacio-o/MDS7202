@@ -41,11 +41,12 @@ with DAG(
     # 3. Descarga de datos.
     # El path de guardado utiliza templating de Airflow ({{ ds }}) para apuntar
     # a la carpeta de la ejecución actual y guardarlo en la subcarpeta 'raw'.
-    DOWNLOAD_PATH = "./{{ ds }}/raw/data_1.csv" 
+    DOWNLOAD_PATH = "/opt/airflow/{{ ds }}/raw/data_1.csv" 
     
     task_download_data = BashOperator(
-        task_id='download_data_to_raw',
-        bash_command=f"curl -o {DOWNLOAD_PATH} {DOWNLOAD_URL}",
+    task_id='download_data_to_raw',
+    # Usar el path absoluto en el comando bash
+    bash_command=f"curl -o {DOWNLOAD_PATH} {DOWNLOAD_URL}",
     )
 
     # 4. Aplicación de Hold Out y guardado en 'splits'.
