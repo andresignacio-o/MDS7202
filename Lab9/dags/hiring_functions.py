@@ -1,198 +1,277 @@
 # hiring_functions.py
+import json
 import os
+import time
 from pathlib import Path
+
+import gradio as gr
+import joblib
 import pandas as pd
-# Módulos de Scikit-learn
+from airflow.exceptions import AirflowException
+from sklearn.compose import ColumnTransformer
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.impute import SimpleImputer
+from sklearn.metrics import accuracy_score, f1_score
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
-from sklearn.compose import ColumnTransformer
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, f1_score
-import joblib # Para guardar y cargar el modelo entrenado
-import gradio as gr # Para la interfaz de usuario
-from airflow.exceptions import AirflowException
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
-# --------------------------------------------------------------------------------------
+EXPECTED_COLUMNS = [
+    'Age',
+    'Gender',
+    'EducationLevel',
+    'ExperienceYears',
+    'PreviousCompanies',
+    'DistanceFromCompany',
+    'InterviewScore',
+    'SkillScore',
+    'PersonalityScore',
+    'RecruitmentStrategy',
+]
+
+LABEL_MAP = {0: "No Contratado", 1: "Contratado"}
+
+
+def _run_dir(execution_date_str: str) -> Path:
+    """Devuelve /opt/airflow/<ds> (o AIRFLOW_HOME/<ds>)."""
+    airflow_home = os.environ.get('AIRFLOW_HOME', '/opt/airflow')
+    return Path(airflow_home) / execution_date_str
+
+
 def create_folders(**kwargs):
-    # Airflow pasa 'ds' (la fecha de la ejecución) como un argumento
     execution_date_str = kwargs.get('ds')
-    
     if not execution_date_str:
         raise AirflowException("Missing 'ds' argument in context.")
 
-    # 1. Definir la RUTA BASE absoluta
-    # Esto apunta a /opt/airflow, donde se ejecuta el DAG
-    airflow_home = os.environ.get('AIRFLOW_HOME', '/opt/airflow') 
-    
-    # 2. Definir la RUTA RAW ABSOLUTA
-    raw_path = Path(airflow_home) / execution_date_str / "raw"
-    
-    # 3. Crear el directorio (y todos sus padres si no existen)
-    raw_path.mkdir(parents=True, exist_ok=True) 
-    
-    # Opcionalmente, crea las otras carpetas (splits, models) de manera similar
-    Path(airflow_home) / "splits".mkdir(parents=True, exist_ok=True)
-    Path(airflow_home) / "models".mkdir(parents=True, exist_ok=True)
+    base = _run_dir(execution_date_str)
 
-    print(f"Created folder: {raw_path}")
+    for subfolder in ("raw", "splits", "models"):
+        (base / subfolder).mkdir(parents=True, exist_ok=True)
 
-# --------------------------------------------------------------------------------------
+    print(f"Created folders under: {base}")
+    return str(base)
+
 
 def split_data(**kwargs):
-    """
-    Función para realizar un hold-out (train-test split) estratificado y guardar los resultados.
-    """
-    # Se segmenta el DataFrame: X (características) y Y (variable objetivo).
-    # Se asume que la última columna (HiringDecision) es la variable a predecir.
-    execution_date = kwargs['ds']
-    raw_path = Path(execution_date) / 'raw' / 'data_1.csv'
-    splits_path = Path(execution_date) / 'splits'
-    data = pd.read_csv(raw_path)
-    X = data.drop(columns=['HiringDecision']) # Se remueve la columna objetivo
-    y = data['HiringDecision'] # Se define la columna objetivo
+    execution_date = kwargs.get('ds')
+    if not execution_date:
+        raise AirflowException("Missing 'ds' argument in context.")
+
+    base = _run_dir(execution_date)
+    raw_file = base / 'raw' / 'data_1.csv'
+    splits_path = base / 'splits'
+    splits_path.mkdir(parents=True, exist_ok=True)
+
+    data = pd.read_csv(raw_file)
+    X = data.drop(columns=['HiringDecision'])
+    y = data['HiringDecision']
+
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, stratify=y, random_state=42
     )
-    # Se concatenan de nuevo para guardarlos
+
     train_set = pd.concat([X_train, y_train], axis=1)
     test_set = pd.concat([X_test, y_test], axis=1)
+
     train_set.to_csv(splits_path / 'train.csv', index=False)
     test_set.to_csv(splits_path / 'test.csv', index=False)
-    return "División de datos (entrenamiento y prueba) completada y guardada en la carpeta 'splits'."
 
-# --------------------------------------------------------------------------------------
+    return f"Splits guardados en {splits_path}"
+
 
 def preprocess_and_train(**kwargs):
-    """
-    Función para entrenar un Pipeline con preprocesamiento (ColumnTransformer) y un modelo
-    (RandomForest), guardar el modelo y reportar las métricas de evaluación.
-    """
-    # Se guarda el Pipeline entrenado en la carpeta 'models' en formato joblib.
-    # Se reportan los resultados de la evaluación.
-    execution_date = kwargs['ds']
-    splits_path = Path(execution_date) / 'splits'
-    models_path = Path(execution_date) / 'models'
-    
-    # Se cargan los datos de entrenamiento
+    execution_date = kwargs.get('ds')
+    if not execution_date:
+        raise AirflowException("Missing 'ds' argument in context.")
+
+    base = _run_dir(execution_date)
+    splits_path = base / 'splits'
+    models_path = base / 'models'
+    models_path.mkdir(parents=True, exist_ok=True)
+
     train_set = pd.read_csv(splits_path / 'train.csv')
     test_set = pd.read_csv(splits_path / 'test.csv')
-    
-    # Se definen X e y (asumiendo que HiringDecision es la última columna o se dropea)
+
     X_train = train_set.drop(columns=['HiringDecision'])
     y_train = train_set['HiringDecision']
     X_test = test_set.drop(columns=['HiringDecision'])
     y_test = test_set['HiringDecision']
-    
-    # Se clasifican las características. Dado que Gender, EducationLevel y RecruitmentStrategy
-    # están codificadas numéricamente, todas se tratan como características numéricas.
-    categorical_features = X_train.select_dtypes(include=['object', 'category']).columns.tolist()
-    numerical_features = X_train.select_dtypes(exclude=['object', 'category']).columns.tolist() # Captura todas las 10 características
 
-    # Se define el preprocesamiento: Imputación por mediana y Escalamiento Estándar.
-    numerical_transformer = Pipeline(steps=[('imputer', SimpleImputer(strategy='median')), ('scaler', StandardScaler())])
-    
-    # Nota: No se requiere transformer categórico ya que todas las variables están pre-codificadas numéricamente.
-    # No obstante, se mantiene la estructura ColumnTransformer para manejar ambos casos, aunque 'cat' esté vacío.
-    categorical_transformer = Pipeline(steps=[('imputer', SimpleImputer(strategy='most_frequent')), ('onehot', OneHotEncoder(handle_unknown='ignore'))])
-    
+    categorical_features = X_train.select_dtypes(include=['object', 'category']).columns.tolist()
+    numerical_features = X_train.select_dtypes(exclude=['object', 'category']).columns.tolist()
+
+    numerical_transformer = Pipeline(steps=[
+        ('imputer', SimpleImputer(strategy='median')),
+        ('scaler', StandardScaler())
+    ])
+
+    categorical_transformer = Pipeline(steps=[
+        ('imputer', SimpleImputer(strategy='most_frequent')),
+        ('onehot', OneHotEncoder(handle_unknown='ignore'))
+    ])
+
     preprocessor = ColumnTransformer(
         transformers=[
             ('num', numerical_transformer, numerical_features),
-            ('cat', categorical_transformer, categorical_features) # Lista vacía si no hay strings
+            ('cat', categorical_transformer, categorical_features),
         ],
         remainder='passthrough'
     )
-    
-    # Se construye el Pipeline completo.
-    pipeline = Pipeline(steps=[('preprocessor', preprocessor), ('classifier', RandomForestClassifier(random_state=42))])
-    
-    # Se realiza el entrenamiento.
+
+    pipeline = Pipeline(steps=[
+        ('preprocessor', preprocessor),
+        ('classifier', RandomForestClassifier(random_state=42))
+    ])
+
     pipeline.fit(X_train, y_train)
-    
-    # Se realiza la evaluación.
+
     y_pred = pipeline.predict(X_test)
     accuracy = accuracy_score(y_test, y_pred)
     f1 = f1_score(y_test, y_pred, pos_label=1)
-    
-    # Se guarda el modelo.
+
     joblib.dump(pipeline, models_path / 'trained_pipeline.joblib')
-    
-    # Se reportan los resultados.
-    print(f"\n--- Evaluación del Modelo ---")
-    print(f"Accuracy en conjunto de prueba: {accuracy:.4f}")
-    print(f"F1-score (Clase Positiva 'Contratado'): {f1:.4f}")
-    return "Pipeline de preprocesamiento y entrenamiento completado. Modelo guardado en 'models/trained_pipeline.joblib'."
-    
-# --------------------------------------------------------------------------------------
+
+    print("\n--- Evaluación del Modelo ---")
+    print(f"Accuracy: {accuracy:.4f}")
+    print(f"F1-score: {f1:.4f}")
+
+    return f"Modelo guardado en {models_path / 'trained_pipeline.joblib'}"
+
 
 def gradio_interface(**kwargs):
-    """
-    Función que construye la interfaz de predicción Gradio para el modelo entrenado,
-    utilizando las 10 características definidas.
-    """
-    # Se extrae la fecha de ejecución para construir la ruta de acceso al modelo.
-    execution_date = kwargs['ds']
-    
-    # Se define la ruta completa del archivo del modelo.
-    model_path = Path(execution_date) / 'models' / 'trained_pipeline.joblib'
+    execution_date = kwargs.get('ds')
+    if not execution_date:
+        raise AirflowException("Missing 'ds' argument in context.")
 
-    # Se define la función auxiliar que realiza la predicción.
-    # Acepta las 10 características en el orden definido.
-    def predict_hiring(Age, Gender, EducationLevel, ExperienceYears, PreviousCompanies, 
-                       DistanceFromCompany, InterviewScore, SkillScore, PersonalityScore, RecruitmentStrategy):
-        
-        # Se carga el Pipeline entrenado desde la ruta especificada.
-        pipeline = joblib.load(model_path)
-        
-        # Se construye el DataFrame de entrada con los nombres de columna correctos.
-        input_data = pd.DataFrame({
-            'Age': [Age], 
-            'Gender': [Gender], 
-            'EducationLevel': [EducationLevel], 
-            'ExperienceYears': [ExperienceYears], 
-            'PreviousCompanies': [PreviousCompanies], 
-            'DistanceFromCompany': [DistanceFromCompany], 
-            'InterviewScore': [InterviewScore], 
-            'SkillScore': [SkillScore], 
-            'PersonalityScore': [PersonalityScore],
-            'RecruitmentStrategy': [RecruitmentStrategy]
-        })
-        
-        # Se realiza la predicción con el Pipeline.
-        prediction = pipeline.predict(input_data)[0]
-        
-        # Se utiliza un diccionario para mapear la predicción numérica (0 o 1) a etiquetas.
-        label_map = {0: "No Contratado", 1: "Contratado"}
-        
-        # Se retorna el resultado de la predicción.
-        return label_map.get(prediction, "Error de Predicción")
+    base = _run_dir(execution_date)
+    model_path = base / 'models' / 'trained_pipeline.joblib'
 
-    # Se definen los 10 componentes de entrada para Gradio.
-    inputs = [
-        gr.Number(label="Age (Edad)"),
-        gr.Radio({0: 'Male', 1: 'Female'}, label="Gender (Género)"), # Mapeo 0/1
-        gr.Dropdown({1: 'Licenciatura Tipo 1', 2: 'Licenciatura Tipo 2', 3: 'Maestría', 4: 'PhD'}, label="EducationLevel (Nivel Educacional)"), # Mapeo 1-4
-        gr.Number(label="ExperienceYears (Años de Experiencia)"),
-        gr.Number(label="PreviousCompanies (N° Compañías Anteriores)"),
-        gr.Number(label="DistanceFromCompany (Distancia a la Compañía en km)"),
-        gr.Number(label="InterviewScore (Puntaje Entrevista 0-100)"),
-        gr.Number(label="SkillScore (Puntaje Habilidades 0-100)"),
-        gr.Number(label="PersonalityScore (Puntaje Personalidad 0-100)"),
-        gr.Radio({1: 'Agresiva', 2: 'Moderada', 3: 'Conservadora'}, label="RecruitmentStrategy (Estrategia Reclutamiento)"), # Mapeo 1-3
-    ]
-    
-    # Se define el componente de salida.
-    output = gr.Textbox(label="HiringDecision: Resultado de la Contratación")
+    if not model_path.exists():
+        raise AirflowException(f"No se encontró un modelo entrenado en {model_path}")
 
-    # Se crea el objeto de la interfaz Gradio.
+    pipeline = joblib.load(model_path)
+
+    def predict_from_json(json_input):
+        if json_input is None:
+            raise gr.Error("Debe cargar un archivo JSON con las características.")
+
+        print(f"Tipo de entrada recibido en Gradio: {type(json_input)}")
+
+        if hasattr(json_input, 'read'):
+            content = json_input.read()
+            if isinstance(content, bytes):
+                content = content.decode('utf-8')
+            try:
+                json_input.seek(0)
+            except (AttributeError, OSError):
+                pass
+        elif isinstance(json_input, bytes):
+            content = json_input.decode('utf-8')
+        elif isinstance(json_input, str) and os.path.exists(json_input):
+            with open(json_input, 'r', encoding='utf-8') as file_obj:
+                content = file_obj.read()
+        else:
+            content = json_input
+
+        try:
+            payload = json.loads(content)
+        except json.JSONDecodeError as exc:
+            raise gr.Error("El archivo JSON no tiene un formato válido.") from exc
+
+        if isinstance(payload, dict):
+            payload = [payload]
+        if not isinstance(payload, list):
+            raise gr.Error("El JSON debe contener un objeto o una lista de objetos con características.")
+
+        df = pd.DataFrame(payload)
+
+        missing = [col for col in EXPECTED_COLUMNS if col not in df.columns]
+        if missing:
+            raise gr.Error(f"Faltan las columnas: {', '.join(missing)}")
+
+        df = df[EXPECTED_COLUMNS]
+        predictions = pipeline.predict(df)
+
+        labels = [LABEL_MAP.get(int(value), str(value)) for value in predictions]
+        return ", ".join(labels)
+
     interface = gr.Interface(
-        fn=predict_hiring,
-        inputs=inputs,
-        outputs=output,
-        title="Modelo de Predicción de Contratación (Uso de las 10 Características)"
+        fn=predict_from_json,
+        inputs=gr.File(label="Archivo JSON con postulantes"),
+        outputs=gr.Textbox(label="Predicciones"),
+        title="Modelo de Contratación",
     )
 
-    # Se notifica la finalización.
-    return "Interfaz Gradio definida, lista para ser desplegada en un entorno de servidor."
+    share_enabled = os.environ.get('GRADIO_SHARE', 'true').lower() == 'true'
+    block_interface = os.environ.get('GRADIO_BLOCK_INTERFACE', 'false').lower() == 'true'
+
+    launch_kwargs = {
+        'server_name': '0.0.0.0',
+        'server_port': int(os.environ.get('GRADIO_SERVER_PORT', '7860')),
+        'inbrowser': False,
+        'share': share_enabled,
+        'show_error': True,
+    }
+
+    if block_interface:
+        print("Iniciando Gradio en modo bloqueante; cierre manualmente para continuar.")
+        interface.launch(**launch_kwargs)
+        print("Interfaz Gradio detenida.")
+        return "Interfaz Gradio finalizada."
+
+    launch_kwargs['prevent_thread_lock'] = True
+    launch_result = interface.launch(**launch_kwargs)
+
+    app = None
+    local_url = None
+    share_url = None
+
+    if isinstance(launch_result, tuple):
+        if len(launch_result) >= 1:
+            app = launch_result[0]
+        if len(launch_result) >= 2:
+            local_url = launch_result[1]
+        if len(launch_result) >= 3:
+            share_url = launch_result[2]
+    elif isinstance(launch_result, dict):
+        app = launch_result.get('app')
+        local_url = launch_result.get('local_url')
+        share_url = launch_result.get('share_url')
+    elif isinstance(launch_result, str):
+        share_url = launch_result
+
+    status_message = "Interfaz Gradio iniciada."
+
+    if share_url:
+        print(f"Gradio share URL: {share_url}")
+        status_message = f"Interfaz Gradio iniciada en URL pública: {share_url}"
+    elif local_url:
+        print(f"Gradio local URL: {local_url}")
+        status_message = f"Interfaz Gradio iniciada en URL local: {local_url}"
+
+    keepalive_seconds = int(os.environ.get('GRADIO_KEEPALIVE_SECONDS', '600'))
+    if keepalive_seconds > 0:
+        print(f"Manteniendo la interfaz activa durante {keepalive_seconds} segundos para interacción manual.")
+        end_time = time.time() + keepalive_seconds
+        try:
+            while time.time() < end_time:
+                # Sale anticipadamente si la app deja de estar disponible.
+                if app is not None:
+                    app_running = getattr(app, "is_running", None)
+                    if callable(app_running) and not app_running():
+                        print("La interfaz Gradio se detuvo antes de lo previsto.")
+                        break
+                time.sleep(2)
+        except KeyboardInterrupt:
+            print("Espera interrumpida manualmente.")
+        finally:
+            if app is not None:
+                for close_attr in ("close", "shutdown"):
+                    close_callable = getattr(app, close_attr, None)
+                    if callable(close_callable):
+                        close_callable()
+                        break
+    else:
+        print("GRADIO_KEEPALIVE_SECONDS <= 0, la interfaz se cerrará al finalizar la tarea de Airflow.")
+
+    return status_message
