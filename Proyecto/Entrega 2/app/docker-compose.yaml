@@ -1,0 +1,32 @@
+# contenido de entrega_2/app/docker-compose.yml
+version: '3.8'
+
+services: # 2. CLAVE REQUERIDA: Todos los servicios deben ir aquí
+  
+  # 2.1. Definición del servicio 'backend'
+  backend:
+    build: 
+      context: ../app/backend
+    container_name: mlops-backend
+    ports:
+      - "8000:8000"
+    networks:
+      - mlops-network
+
+  # 2.2. Definición del servicio 'frontend'
+  frontend: # <--- Esta clave ahora está permitida bajo 'services:'
+    build:
+      context: ../app/frontend
+    container_name: mlops-frontend
+    ports:
+      - "7860:7860"
+    depends_on:
+      - backend 
+    networks:
+      - mlops-network
+
+
+
+networks:
+  mlops-network:
+    driver: bridge
