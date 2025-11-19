@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 # airflow/dags/utils/data_prep_entrega1.py
 
 def build_panel(
@@ -121,4 +123,3 @@ def build_full_pipeline(preprocessor, OutlierHandler):
     ])
 
     return full_pipeline
-from __future__ import annotations

@@ -70,6 +70,9 @@ def preprocess_data(raw_paths: dict) -> dict:
 
     def transform(d):
         d = d.copy()
+        datetime_cols = [c for c in d.columns if c != WEEK_COL and pd.api.types.is_datetime64_any_dtype(d[c])]
+        for col in datetime_cols:
+            d[col] = d[col].view("int64")
         d = pd.get_dummies(d, columns=categorical_cols, drop_first=True)
         return d
 

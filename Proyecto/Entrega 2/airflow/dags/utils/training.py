@@ -1,9 +1,15 @@
 # airflow/dags/utils/training.py
 
+import logging
 from pathlib import Path
 
-from .config import TARGET_COL, ID_COLS, MLFLOW_EXPERIMENT_NAME
+import matplotlib
+from sklearn.metrics import roc_auc_score
+
+from .config import TARGET_COL, ID_COLS, MLFLOW_EXPERIMENT_NAME, WEEK_COL
 from .mlflow_utils import setup_mlflow
+
+matplotlib.use("Agg")
 
 
 def _load_data_for_training(reference_path: str):
@@ -11,7 +17,10 @@ def _load_data_for_training(reference_path: str):
     from sklearn.model_selection import train_test_split
 
     df = pd.read_parquet(reference_path)
-    X = df.drop(columns=ID_COLS + [TARGET_COL])
+    drop_cols = ID_COLS + [TARGET_COL]
+    if WEEK_COL in df.columns:
+        drop_cols.append(WEEK_COL)
+    X = df.drop(columns=drop_cols, errors="ignore")
     y = df[TARGET_COL]
     return train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -67,14 +76,23 @@ def run_hyperparameter_optimization(reference_path: str, n_trials: int = 20) -> 
         X_train, X_val, y_train, y_val = _load_data_for_training(reference_path)
         explainer = shap.TreeExplainer(best_model)
         shap_values = explainer.shap_values(X_val)
+        shap_array = shap_values[1] if isinstance(shap_values, list) else shap_values
 
-        shap.summary_plot(shap_values[1], X_val, show=False)
-        shap_plot_path = Path("shap_summary.png")
-        shap_plot_path.parent.mkdir(exist_ok=True, parents=True)
-        plt.savefig(shap_plot_path, bbox_inches="tight")
-        plt.close()
+        if shap_array.shape[1] == X_val.shape[1]:
+            shap.summary_plot(shap_array, X_val, show=False)
+            shap_plot_path = Path("shap_summary.png")
+            shap_plot_path.parent.mkdir(exist_ok=True, parents=True)
+            plt.savefig(shap_plot_path, bbox_inches="tight")
+            plt.close()
 
-        mlflow.log_artifact(str(shap_plot_path))
+            mlflow.log_artifact(str(shap_plot_path))
+        else:
+            logging.warning(
+                "Skipping SHAP summary plot: shap_values shape %s does not match feature shape %s",
+                shap_array.shape,
+                X_val.shape,
+            )
+
         mlflow.sklearn.log_model(best_model, artifact_path="model", registered_model_name="sodai_drinks_model")
 
         model_uri = f"runs:/{run.info.run_id}/model"

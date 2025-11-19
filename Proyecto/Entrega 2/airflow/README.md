@@ -1,5 +1,30 @@
 # Pipeline Airflow (Entrega 2)
 
+
+Como Lanzar:
+
+Abre terminal y ve al proyecto: cd "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow".
+(Recomendado) crea un entorno: python3 -m venv .venv && source .venv/bin/activate.
+Instala dependencias: pip install --upgrade pip && pip install -r requirements.txt.
+Exporta variables antes de cada sesión (puedes meterlas en un .env):
+
+export AIRFLOW_HOME=$(pwd)/airflow_home
+export AIRFLOW__CORE__LOAD_EXAMPLES=False
+export AIRFLOW__CORE__DAGS_FOLDER=$(pwd)/dags
+export PYTHONPATH=$(pwd)/dags:$PYTHONPATH 
+
+Inicializa la metadata si es la primera vez o si borras airflow_home: airflow db init. Si ya tienes airflow_home/airflow.db, puedes hacer airflow db upgrade para aplicar migraciones.
+Crea un usuario admin si aún no existe:
+airflow users create --username admin --password admin --firstname Admin --lastname User --role Admin --email admin@example.com.
+Lanza los servicios en dos terminales (con el entorno y las variables cargadas):
+
+Terminal A: airflow scheduler.
+
+Terminal B: airflow webserver --port 8080 y entra en http://localhost:8080 con las credenciales anteriores.
+
+Una vez el DAG aparezca sin errores de importación en la UI, activa el toggle y dispara una corrida manual (Trigger Dag), o vía CLI: airflow dags trigger sodai_drinks_pipeline. Verifica los logs de cada tarea (UI) para confirmar la copia de datos, el resultado de drift, el reentrenamiento y la generación de airflow/data/predictions/predicciones_semana_<week>.parquet.
+Si necesitas ejecutar pruebas aisladas durante el desarrollo, puedes usar airflow tasks test sodai_drinks_pipeline preprocess_data 2024-01-01 (con el scheduler detenido) para depurar cada operador.
+
 Arquitectura orientada a producción para el sistema predictivo de compras semanales.
 
 - **DAG**: `sodai_drinks_pipeline` (`airflow/dags/sodai_pipeline_dag.py`), semanal, sin catchup.
