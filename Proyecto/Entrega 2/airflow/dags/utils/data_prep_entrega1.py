@@ -1,16 +1,15 @@
 # airflow/dags/utils/data_prep_entrega1.py
 
-import pandas as pd
-
 def build_panel(
-    transacciones: pd.DataFrame,
-    clientes: pd.DataFrame,
-    productos: pd.DataFrame,
-    df_cliente_producto: pd.DataFrame
-) -> pd.DataFrame:
+    transacciones,
+    clientes,
+    productos,
+    df_cliente_producto
+):
     """
     Construye el panel cliente-producto-semana con la lógica de la entrega 1.
     """
+    import pandas as pd
 
     # 1) Asegurar tipos
     trans = transacciones.copy()
@@ -90,6 +89,7 @@ def split_by_time(df_panel: pd.DataFrame, val_weeks: int = 1, test_weeks: int = 
     """
     Separa el dataset por tiempo (columna week) en train / val / test.
     """
+    import pandas as pd
 
     df = df_panel.copy().sort_values("week")
 
@@ -121,3 +121,4 @@ def build_full_pipeline(preprocessor, OutlierHandler):
     ])
 
     return full_pipeline
+from __future__ import annotations

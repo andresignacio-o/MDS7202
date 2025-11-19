@@ -1,11 +1,9 @@
 # airflow/dags/utils/drift_detection.py
 
-import numpy as np
-import pandas as pd
-
-
 def _psi(expected: np.ndarray, actual: np.ndarray, buckets: int = 10) -> float:
     """Population Stability Index para una columna numérica."""
+    import numpy as np
+
     expected = np.array(expected)
     actual = np.array(actual)
     breakpoints = np.percentile(expected, np.linspace(0, 100, buckets + 1))
@@ -26,6 +24,9 @@ def detect_drift(reference_path: str, new_batch_path: str, feature_cols, psi_thr
     Calcula PSI medio entre reference y new_batch para las columnas de features.
     Retorna dict con has_drift y avg_psi.
     """
+    import numpy as np
+    import pandas as pd
+
     ref = pd.read_parquet(reference_path)
     new = pd.read_parquet(new_batch_path)
 
@@ -42,3 +43,4 @@ def detect_drift(reference_path: str, new_batch_path: str, feature_cols, psi_thr
     has_drift = avg_psi > psi_threshold
 
     return {"has_drift": has_drift, "avg_psi": avg_psi, "psi_scores": psi_scores}
+from __future__ import annotations

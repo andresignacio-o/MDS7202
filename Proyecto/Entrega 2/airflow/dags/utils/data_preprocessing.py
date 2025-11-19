@@ -2,16 +2,9 @@
 
 import os
 from pathlib import Path
-import pandas as pd
 
-from .config import (
-    RAW_DATA_DIR,
-    PROCESSED_DATA_DIR,
-    TARGET_COL,
-    WEEK_COL,
-    ID_COLS,
-)
-from .data_prep_entrega1 import build_panel
+from .config import RAW_DATA_DIR, PROCESSED_DATA_DIR, TARGET_COL, WEEK_COL, ID_COLS
+from . import data_prep_entrega1
 
 PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
 RAW_DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -28,6 +21,7 @@ def extract_data(input_dir: str = "data") -> dict:
         src = src_dir / fname
         if src.exists():
             dst = RAW_DATA_DIR / fname
+            import pandas as pd
             df = pd.read_parquet(src)
             df.to_parquet(dst, index=False)
             raw_paths[fname] = str(dst)
@@ -35,7 +29,9 @@ def extract_data(input_dir: str = "data") -> dict:
     return raw_paths
 
 
-def _load_raw(raw_paths: dict) -> tuple[pd.DataFrame, pd.DataFrame | None, pd.DataFrame | None, pd.DataFrame | None]:
+def _load_raw(raw_paths: dict):
+    import pandas as pd
+
     transacciones = pd.read_parquet(raw_paths["transacciones.parquet"])
     clientes = pd.read_parquet(raw_paths["clientes.parquet"]) if "clientes.parquet" in raw_paths else None
     productos = pd.read_parquet(raw_paths["productos.parquet"]) if "productos.parquet" in raw_paths else None
@@ -50,10 +46,12 @@ def preprocess_data(raw_paths: dict) -> dict:
     Construye panel (entrega 1), separa reference vs. new_batch, one-hot y alinea columnas.
     Devuelve paths y metadatos para el DAG.
     """
+    import pandas as pd
+
     transacciones, clientes, productos, df_cliente_producto = _load_raw(raw_paths)
 
     if clientes is not None and productos is not None and df_cliente_producto is not None:
-        df = build_panel(transacciones, clientes, productos, df_cliente_producto)
+        df = data_prep_entrega1.build_panel(transacciones, clientes, productos, df_cliente_producto)
     else:
         # fallback simple si solo hay transacciones
         df = transacciones.copy()

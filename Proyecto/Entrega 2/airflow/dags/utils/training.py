@@ -1,22 +1,16 @@
 # airflow/dags/utils/training.py
 
 from pathlib import Path
-import optuna
-import mlflow
-import mlflow.sklearn
-import shap
-import pandas as pd
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import roc_auc_score
-from sklearn.model_selection import train_test_split
 
 from .config import TARGET_COL, ID_COLS, MLFLOW_EXPERIMENT_NAME
 from .mlflow_utils import setup_mlflow
 
 
 def _load_data_for_training(reference_path: str):
+    import pandas as pd
+    from sklearn.model_selection import train_test_split
+
     df = pd.read_parquet(reference_path)
-    # Evitar que IDs o target entren al modelo
     X = df.drop(columns=ID_COLS + [TARGET_COL])
     y = df[TARGET_COL]
     return train_test_split(X, y, test_size=0.2, random_state=42)
@@ -28,6 +22,8 @@ def _objective(trial, reference_path: str):
     n_estimators = trial.suggest_int("n_estimators", 50, 300)
     max_depth = trial.suggest_int("max_depth", 3, 20)
     min_samples_split = trial.suggest_int("min_samples_split", 2, 10)
+
+    from sklearn.ensemble import RandomForestClassifier
 
     model = RandomForestClassifier(
         n_estimators=n_estimators,
@@ -46,6 +42,13 @@ def _objective(trial, reference_path: str):
 
 
 def run_hyperparameter_optimization(reference_path: str, n_trials: int = 20) -> dict:
+    import optuna
+    import mlflow
+    import mlflow.sklearn
+    import shap
+    import pandas as pd
+    import matplotlib.pyplot as plt
+
     setup_mlflow()
 
     study = optuna.create_study(direction="maximize", study_name="sodai_rf_optuna")
@@ -65,11 +68,9 @@ def run_hyperparameter_optimization(reference_path: str, n_trials: int = 20) -> 
         explainer = shap.TreeExplainer(best_model)
         shap_values = explainer.shap_values(X_val)
 
-        # Guardar gráfico SHAP como artefacto
         shap.summary_plot(shap_values[1], X_val, show=False)
         shap_plot_path = Path("shap_summary.png")
         shap_plot_path.parent.mkdir(exist_ok=True, parents=True)
-        import matplotlib.pyplot as plt
         plt.savefig(shap_plot_path, bbox_inches="tight")
         plt.close()
 
