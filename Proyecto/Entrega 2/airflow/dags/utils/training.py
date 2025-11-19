@@ -5,8 +5,9 @@ from pathlib import Path
 
 import matplotlib
 from sklearn.metrics import roc_auc_score
+import joblib
 
-from .config import TARGET_COL, ID_COLS, MLFLOW_EXPERIMENT_NAME, WEEK_COL
+from .config import TARGET_COL, ID_COLS, MLFLOW_EXPERIMENT_NAME, WEEK_COL, MODEL_ARTIFACT_PATH
 from .mlflow_utils import setup_mlflow
 
 matplotlib.use("Agg")
@@ -97,8 +98,13 @@ def run_hyperparameter_optimization(reference_path: str, n_trials: int = 20) -> 
 
         model_uri = f"runs:/{run.info.run_id}/model"
 
+    artifact_path = Path(MODEL_ARTIFACT_PATH)
+    artifact_path.parent.mkdir(parents=True, exist_ok=True)
+    joblib.dump(best_model, artifact_path)
+
     return {
         "best_params": best_trial.params,
         "best_auc": best_trial.value,
         "model_uri": model_uri,
+        "artifact_local_path": str(artifact_path),
     }
