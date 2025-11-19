@@ -109,6 +109,7 @@ with DAG(
     select_model = PythonOperator(
         task_id="select_model",
         python_callable=select_model_task,
+        trigger_rule="none_failed_min_one_success",
     )
 
     def predict_task(**context):
