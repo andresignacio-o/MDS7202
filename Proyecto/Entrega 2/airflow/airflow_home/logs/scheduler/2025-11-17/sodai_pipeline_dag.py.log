@@ -1,0 +1,79 @@
+[2025-11-17T19:38:25.462-0300] {processor.py:161} INFO - Started process (PID=48296) to work on /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/sodai_pipeline_dag.py
+[2025-11-17T19:38:25.462-0300] {processor.py:830} INFO - Processing file /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/sodai_pipeline_dag.py for tasks to queue
+[2025-11-17T19:38:25.463-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:38:25.463-0300] {dagbag.py:545} INFO - Filling up the DagBag from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/sodai_pipeline_dag.py
+[2025-11-17T19:38:25.592-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:38:25.590-0300] {dagbag.py:355} ERROR - Failed to import: /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/sodai_pipeline_dag.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/sodai_pipeline_dag.py", line 9, in <module>
+    from utils.data_preprocessing import extract_data, preprocess_data
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py", line 5, in <module>
+    import pandas as pd
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/__init__.py", line 22, in <module>
+    from pandas.compat import is_numpy_dev as _is_numpy_dev  # pyright: ignore # noqa:F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/compat/__init__.py", line 25, in <module>
+    from pandas.compat.numpy import (
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/compat/numpy/__init__.py", line 4, in <module>
+    from pandas.util.version import Version
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/util/__init__.py", line 2, in <module>
+    from pandas.util._decorators import (  # noqa:F401
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/util/_decorators.py", line 14, in <module>
+    from pandas._libs.properties import cache_readonly
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/_libs/__init__.py", line 13, in <module>
+    from pandas._libs.interval import Interval
+  File "pandas/_libs/interval.pyx", line 1, in init pandas._libs.interval
+ValueError: numpy.dtype size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject
+[2025-11-17T19:38:25.593-0300] {processor.py:842} WARNING - No viable dags retrieved from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/sodai_pipeline_dag.py
+[2025-11-17T19:38:25.622-0300] {processor.py:183} INFO - Processing /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/sodai_pipeline_dag.py took 0.162 seconds
+[2025-11-17T19:40:53.981-0300] {processor.py:161} INFO - Started process (PID=48592) to work on /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/sodai_pipeline_dag.py
+[2025-11-17T19:40:53.982-0300] {processor.py:830} INFO - Processing file /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/sodai_pipeline_dag.py for tasks to queue
+[2025-11-17T19:40:53.983-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:40:53.982-0300] {dagbag.py:545} INFO - Filling up the DagBag from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/sodai_pipeline_dag.py
+[2025-11-17T19:40:54.103-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:40:54.101-0300] {dagbag.py:355} ERROR - Failed to import: /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/sodai_pipeline_dag.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/sodai_pipeline_dag.py", line 9, in <module>
+    from utils.data_preprocessing import extract_data, preprocess_data
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py", line 5, in <module>
+    import pandas as pd
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/__init__.py", line 22, in <module>
+    from pandas.compat import is_numpy_dev as _is_numpy_dev  # pyright: ignore # noqa:F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/compat/__init__.py", line 25, in <module>
+    from pandas.compat.numpy import (
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/compat/numpy/__init__.py", line 4, in <module>
+    from pandas.util.version import Version
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/util/__init__.py", line 2, in <module>
+    from pandas.util._decorators import (  # noqa:F401
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/util/_decorators.py", line 14, in <module>
+    from pandas._libs.properties import cache_readonly
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/_libs/__init__.py", line 13, in <module>
+    from pandas._libs.interval import Interval
+  File "pandas/_libs/interval.pyx", line 1, in init pandas._libs.interval
+ValueError: numpy.dtype size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject
+[2025-11-17T19:40:54.104-0300] {processor.py:842} WARNING - No viable dags retrieved from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/sodai_pipeline_dag.py
+[2025-11-17T19:40:54.135-0300] {processor.py:183} INFO - Processing /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/sodai_pipeline_dag.py took 0.155 seconds
+[2025-11-17T19:43:30.193-0300] {processor.py:161} INFO - Started process (PID=50045) to work on /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/sodai_pipeline_dag.py
+[2025-11-17T19:43:30.194-0300] {processor.py:830} INFO - Processing file /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/sodai_pipeline_dag.py for tasks to queue
+[2025-11-17T19:43:30.194-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:43:30.194-0300] {dagbag.py:545} INFO - Filling up the DagBag from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/sodai_pipeline_dag.py
+[2025-11-17T19:43:30.208-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:43:30.207-0300] {dagbag.py:355} ERROR - Failed to import: /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/sodai_pipeline_dag.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/sodai_pipeline_dag.py", line 9, in <module>
+    from utils.data_preprocessing import extract_data, preprocess_data
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py", line 7, in <module>
+    from . import data_prep_entrega1
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py", line 88, in <module>
+    def split_by_time(df_panel: pd.DataFrame, val_weeks: int = 1, test_weeks: int = 1):
+                                ^^
+NameError: name 'pd' is not defined
+[2025-11-17T19:43:30.209-0300] {processor.py:842} WARNING - No viable dags retrieved from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/sodai_pipeline_dag.py
+[2025-11-17T19:43:30.275-0300] {processor.py:183} INFO - Processing /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/sodai_pipeline_dag.py took 0.083 seconds

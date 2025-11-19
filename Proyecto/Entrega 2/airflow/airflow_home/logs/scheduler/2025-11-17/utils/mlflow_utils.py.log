@@ -1,0 +1,141 @@
+[2025-11-17T19:38:38.457-0300] {processor.py:161} INFO - Started process (PID=48325) to work on /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/mlflow_utils.py
+[2025-11-17T19:38:38.458-0300] {processor.py:830} INFO - Processing file /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/mlflow_utils.py for tasks to queue
+[2025-11-17T19:38:38.458-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:38:38.458-0300] {dagbag.py:545} INFO - Filling up the DagBag from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/mlflow_utils.py
+[2025-11-17T19:38:38.620-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:38:38.618-0300] {dagbag.py:355} ERROR - Failed to import: /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/mlflow_utils.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/mlflow_utils.py", line 3, in <module>
+    import mlflow
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/__init__.py", line 44, in <module>
+    from mlflow import (
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/artifacts/__init__.py", line 14, in <module>
+    from mlflow.tracking import _get_store
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/tracking/__init__.py", line 33, in <module>
+    from mlflow.tracking.client import MlflowClient
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/tracking/client.py", line 27, in <module>
+    from mlflow.entities import (
+  File "<frozen importlib._bootstrap>", line 1229, in _handle_fromlist
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/entities/__init__.py", line 133, in __getattr__
+    from mlflow.entities.evaluation_dataset import EvaluationDataset
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/entities/evaluation_dataset.py", line 6, in <module>
+    from mlflow.data import Dataset
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/data/__init__.py", line 4, in <module>
+    from mlflow.data import dataset_registry
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/data/dataset_registry.py", line 145, in <module>
+    from mlflow.data.pandas_dataset import from_pandas
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/data/pandas_dataset.py", line 6, in <module>
+    import pandas as pd
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/__init__.py", line 22, in <module>
+    from pandas.compat import is_numpy_dev as _is_numpy_dev  # pyright: ignore # noqa:F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/compat/__init__.py", line 25, in <module>
+    from pandas.compat.numpy import (
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/compat/numpy/__init__.py", line 4, in <module>
+    from pandas.util.version import Version
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/util/__init__.py", line 2, in <module>
+    from pandas.util._decorators import (  # noqa:F401
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/util/_decorators.py", line 14, in <module>
+    from pandas._libs.properties import cache_readonly
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/_libs/__init__.py", line 13, in <module>
+    from pandas._libs.interval import Interval
+  File "pandas/_libs/interval.pyx", line 1, in init pandas._libs.interval
+ValueError: numpy.dtype size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject
+[2025-11-17T19:38:38.620-0300] {processor.py:842} WARNING - No viable dags retrieved from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/mlflow_utils.py
+[2025-11-17T19:38:38.649-0300] {processor.py:183} INFO - Processing /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/mlflow_utils.py took 0.193 seconds
+[2025-11-17T19:41:06.332-0300] {processor.py:161} INFO - Started process (PID=48620) to work on /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/mlflow_utils.py
+[2025-11-17T19:41:06.333-0300] {processor.py:830} INFO - Processing file /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/mlflow_utils.py for tasks to queue
+[2025-11-17T19:41:06.333-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:41:06.333-0300] {dagbag.py:545} INFO - Filling up the DagBag from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/mlflow_utils.py
+[2025-11-17T19:41:06.501-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:41:06.498-0300] {dagbag.py:355} ERROR - Failed to import: /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/mlflow_utils.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/mlflow_utils.py", line 3, in <module>
+    import mlflow
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/__init__.py", line 44, in <module>
+    from mlflow import (
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/artifacts/__init__.py", line 14, in <module>
+    from mlflow.tracking import _get_store
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/tracking/__init__.py", line 33, in <module>
+    from mlflow.tracking.client import MlflowClient
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/tracking/client.py", line 27, in <module>
+    from mlflow.entities import (
+  File "<frozen importlib._bootstrap>", line 1229, in _handle_fromlist
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/entities/__init__.py", line 133, in __getattr__
+    from mlflow.entities.evaluation_dataset import EvaluationDataset
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/entities/evaluation_dataset.py", line 6, in <module>
+    from mlflow.data import Dataset
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/data/__init__.py", line 4, in <module>
+    from mlflow.data import dataset_registry
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/data/dataset_registry.py", line 145, in <module>
+    from mlflow.data.pandas_dataset import from_pandas
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/data/pandas_dataset.py", line 6, in <module>
+    import pandas as pd
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/__init__.py", line 22, in <module>
+    from pandas.compat import is_numpy_dev as _is_numpy_dev  # pyright: ignore # noqa:F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/compat/__init__.py", line 25, in <module>
+    from pandas.compat.numpy import (
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/compat/numpy/__init__.py", line 4, in <module>
+    from pandas.util.version import Version
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/util/__init__.py", line 2, in <module>
+    from pandas.util._decorators import (  # noqa:F401
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/util/_decorators.py", line 14, in <module>
+    from pandas._libs.properties import cache_readonly
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/_libs/__init__.py", line 13, in <module>
+    from pandas._libs.interval import Interval
+  File "pandas/_libs/interval.pyx", line 1, in init pandas._libs.interval
+ValueError: numpy.dtype size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject
+[2025-11-17T19:41:06.502-0300] {processor.py:842} WARNING - No viable dags retrieved from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/mlflow_utils.py
+[2025-11-17T19:41:06.534-0300] {processor.py:183} INFO - Processing /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/mlflow_utils.py took 0.203 seconds
+[2025-11-17T19:43:42.440-0300] {processor.py:161} INFO - Started process (PID=50264) to work on /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/mlflow_utils.py
+[2025-11-17T19:43:42.441-0300] {processor.py:830} INFO - Processing file /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/mlflow_utils.py for tasks to queue
+[2025-11-17T19:43:42.441-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:43:42.441-0300] {dagbag.py:545} INFO - Filling up the DagBag from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/mlflow_utils.py
+[2025-11-17T19:43:42.705-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:43:42.699-0300] {dagbag.py:355} ERROR - Failed to import: /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/mlflow_utils.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/mlflow_utils.py", line 3, in <module>
+    import mlflow
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/__init__.py", line 44, in <module>
+    from mlflow import (
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/artifacts/__init__.py", line 14, in <module>
+    from mlflow.tracking import _get_store
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/tracking/__init__.py", line 33, in <module>
+    from mlflow.tracking.client import MlflowClient
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/tracking/client.py", line 27, in <module>
+    from mlflow.entities import (
+  File "<frozen importlib._bootstrap>", line 1229, in _handle_fromlist
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/entities/__init__.py", line 133, in __getattr__
+    from mlflow.entities.evaluation_dataset import EvaluationDataset
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/entities/evaluation_dataset.py", line 6, in <module>
+    from mlflow.data import Dataset
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/data/__init__.py", line 4, in <module>
+    from mlflow.data import dataset_registry
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/data/dataset_registry.py", line 145, in <module>
+    from mlflow.data.pandas_dataset import from_pandas
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/mlflow/data/pandas_dataset.py", line 6, in <module>
+    import pandas as pd
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/__init__.py", line 22, in <module>
+    from pandas.compat import is_numpy_dev as _is_numpy_dev  # pyright: ignore # noqa:F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/compat/__init__.py", line 25, in <module>
+    from pandas.compat.numpy import (
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/compat/numpy/__init__.py", line 4, in <module>
+    from pandas.util.version import Version
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/util/__init__.py", line 2, in <module>
+    from pandas.util._decorators import (  # noqa:F401
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/util/_decorators.py", line 14, in <module>
+    from pandas._libs.properties import cache_readonly
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/_libs/__init__.py", line 13, in <module>
+    from pandas._libs.interval import Interval
+  File "pandas/_libs/interval.pyx", line 1, in init pandas._libs.interval
+ValueError: numpy.dtype size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject
+[2025-11-17T19:43:42.705-0300] {processor.py:842} WARNING - No viable dags retrieved from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/mlflow_utils.py
+[2025-11-17T19:43:42.735-0300] {processor.py:183} INFO - Processing /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/mlflow_utils.py took 0.297 seconds

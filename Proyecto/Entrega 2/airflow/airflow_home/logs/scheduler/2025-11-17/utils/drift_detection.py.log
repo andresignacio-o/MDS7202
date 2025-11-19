@@ -1,0 +1,107 @@
+[2025-11-17T19:38:28.407-0300] {processor.py:161} INFO - Started process (PID=48306) to work on /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py
+[2025-11-17T19:38:28.407-0300] {processor.py:830} INFO - Processing file /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py for tasks to queue
+[2025-11-17T19:38:28.408-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:38:28.408-0300] {dagbag.py:545} INFO - Filling up the DagBag from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py
+[2025-11-17T19:38:28.480-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:38:28.479-0300] {dagbag.py:355} ERROR - Failed to import: /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py", line 4, in <module>
+    import pandas as pd
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/__init__.py", line 22, in <module>
+    from pandas.compat import is_numpy_dev as _is_numpy_dev  # pyright: ignore # noqa:F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/compat/__init__.py", line 25, in <module>
+    from pandas.compat.numpy import (
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/compat/numpy/__init__.py", line 4, in <module>
+    from pandas.util.version import Version
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/util/__init__.py", line 2, in <module>
+    from pandas.util._decorators import (  # noqa:F401
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/util/_decorators.py", line 14, in <module>
+    from pandas._libs.properties import cache_readonly
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/_libs/__init__.py", line 13, in <module>
+    from pandas._libs.interval import Interval
+  File "pandas/_libs/interval.pyx", line 1, in init pandas._libs.interval
+ValueError: numpy.dtype size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject
+[2025-11-17T19:38:28.480-0300] {processor.py:842} WARNING - No viable dags retrieved from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py
+[2025-11-17T19:38:28.509-0300] {processor.py:183} INFO - Processing /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py took 0.103 seconds
+[2025-11-17T19:40:57.074-0300] {processor.py:161} INFO - Started process (PID=48600) to work on /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py
+[2025-11-17T19:40:57.075-0300] {processor.py:830} INFO - Processing file /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py for tasks to queue
+[2025-11-17T19:40:57.075-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:40:57.075-0300] {dagbag.py:545} INFO - Filling up the DagBag from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py
+[2025-11-17T19:40:57.146-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:40:57.145-0300] {dagbag.py:355} ERROR - Failed to import: /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py", line 4, in <module>
+    import pandas as pd
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/__init__.py", line 22, in <module>
+    from pandas.compat import is_numpy_dev as _is_numpy_dev  # pyright: ignore # noqa:F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/compat/__init__.py", line 25, in <module>
+    from pandas.compat.numpy import (
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/compat/numpy/__init__.py", line 4, in <module>
+    from pandas.util.version import Version
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/util/__init__.py", line 2, in <module>
+    from pandas.util._decorators import (  # noqa:F401
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/util/_decorators.py", line 14, in <module>
+    from pandas._libs.properties import cache_readonly
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/_libs/__init__.py", line 13, in <module>
+    from pandas._libs.interval import Interval
+  File "pandas/_libs/interval.pyx", line 1, in init pandas._libs.interval
+ValueError: numpy.dtype size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject
+[2025-11-17T19:40:57.146-0300] {processor.py:842} WARNING - No viable dags retrieved from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py
+[2025-11-17T19:40:57.176-0300] {processor.py:183} INFO - Processing /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py took 0.103 seconds
+[2025-11-17T19:43:32.236-0300] {processor.py:161} INFO - Started process (PID=50175) to work on /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py
+[2025-11-17T19:43:32.237-0300] {processor.py:830} INFO - Processing file /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py for tasks to queue
+[2025-11-17T19:43:32.237-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:43:32.237-0300] {dagbag.py:545} INFO - Filling up the DagBag from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py
+[2025-11-17T19:43:32.238-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:43:32.238-0300] {dagbag.py:355} ERROR - Failed to import: /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py", line 46
+    from __future__ import annotations
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: from __future__ imports must occur at the beginning of the file
+[2025-11-17T19:43:32.239-0300] {processor.py:842} WARNING - No viable dags retrieved from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py
+[2025-11-17T19:43:32.305-0300] {processor.py:183} INFO - Processing /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py took 0.070 seconds
+[2025-11-17T19:44:33.878-0300] {processor.py:161} INFO - Started process (PID=50803) to work on /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py
+[2025-11-17T19:44:33.879-0300] {processor.py:830} INFO - Processing file /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py for tasks to queue
+[2025-11-17T19:44:33.879-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:44:33.879-0300] {dagbag.py:545} INFO - Filling up the DagBag from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py
+[2025-11-17T19:44:33.881-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:44:33.880-0300] {dagbag.py:355} ERROR - Failed to import: /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py", line 46
+    from __future__ import annotations
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: from __future__ imports must occur at the beginning of the file
+[2025-11-17T19:44:33.881-0300] {processor.py:842} WARNING - No viable dags retrieved from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py
+[2025-11-17T19:44:33.951-0300] {processor.py:183} INFO - Processing /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py took 0.075 seconds
+[2025-11-17T19:49:36.492-0300] {processor.py:161} INFO - Started process (PID=52007) to work on /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py
+[2025-11-17T19:49:36.492-0300] {processor.py:830} INFO - Processing file /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py for tasks to queue
+[2025-11-17T19:49:36.493-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:49:36.493-0300] {dagbag.py:545} INFO - Filling up the DagBag from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py
+[2025-11-17T19:49:36.494-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:49:36.493-0300] {dagbag.py:355} ERROR - Failed to import: /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py", line 46
+    from __future__ import annotations
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: from __future__ imports must occur at the beginning of the file
+[2025-11-17T19:49:36.494-0300] {processor.py:842} WARNING - No viable dags retrieved from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py
+[2025-11-17T19:49:36.550-0300] {processor.py:183} INFO - Processing /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/drift_detection.py took 0.060 seconds

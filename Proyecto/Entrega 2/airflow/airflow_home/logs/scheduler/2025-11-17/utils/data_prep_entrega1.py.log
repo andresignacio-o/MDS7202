@@ -1,0 +1,107 @@
+[2025-11-17T19:38:34.438-0300] {processor.py:161} INFO - Started process (PID=48317) to work on /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py
+[2025-11-17T19:38:34.439-0300] {processor.py:830} INFO - Processing file /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py for tasks to queue
+[2025-11-17T19:38:34.439-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:38:34.439-0300] {dagbag.py:545} INFO - Filling up the DagBag from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py
+[2025-11-17T19:38:34.509-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:38:34.508-0300] {dagbag.py:355} ERROR - Failed to import: /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py", line 3, in <module>
+    import pandas as pd
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/__init__.py", line 22, in <module>
+    from pandas.compat import is_numpy_dev as _is_numpy_dev  # pyright: ignore # noqa:F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/compat/__init__.py", line 25, in <module>
+    from pandas.compat.numpy import (
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/compat/numpy/__init__.py", line 4, in <module>
+    from pandas.util.version import Version
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/util/__init__.py", line 2, in <module>
+    from pandas.util._decorators import (  # noqa:F401
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/util/_decorators.py", line 14, in <module>
+    from pandas._libs.properties import cache_readonly
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/_libs/__init__.py", line 13, in <module>
+    from pandas._libs.interval import Interval
+  File "pandas/_libs/interval.pyx", line 1, in init pandas._libs.interval
+ValueError: numpy.dtype size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject
+[2025-11-17T19:38:34.509-0300] {processor.py:842} WARNING - No viable dags retrieved from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py
+[2025-11-17T19:38:34.538-0300] {processor.py:183} INFO - Processing /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py took 0.101 seconds
+[2025-11-17T19:41:02.317-0300] {processor.py:161} INFO - Started process (PID=48612) to work on /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py
+[2025-11-17T19:41:02.318-0300] {processor.py:830} INFO - Processing file /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py for tasks to queue
+[2025-11-17T19:41:02.318-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:41:02.318-0300] {dagbag.py:545} INFO - Filling up the DagBag from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py
+[2025-11-17T19:41:02.390-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:41:02.389-0300] {dagbag.py:355} ERROR - Failed to import: /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py", line 3, in <module>
+    import pandas as pd
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/__init__.py", line 22, in <module>
+    from pandas.compat import is_numpy_dev as _is_numpy_dev  # pyright: ignore # noqa:F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/compat/__init__.py", line 25, in <module>
+    from pandas.compat.numpy import (
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/compat/numpy/__init__.py", line 4, in <module>
+    from pandas.util.version import Version
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/util/__init__.py", line 2, in <module>
+    from pandas.util._decorators import (  # noqa:F401
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/util/_decorators.py", line 14, in <module>
+    from pandas._libs.properties import cache_readonly
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/_libs/__init__.py", line 13, in <module>
+    from pandas._libs.interval import Interval
+  File "pandas/_libs/interval.pyx", line 1, in init pandas._libs.interval
+ValueError: numpy.dtype size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject
+[2025-11-17T19:41:02.390-0300] {processor.py:842} WARNING - No viable dags retrieved from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py
+[2025-11-17T19:41:02.421-0300] {processor.py:183} INFO - Processing /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py took 0.105 seconds
+[2025-11-17T19:43:38.393-0300] {processor.py:161} INFO - Started process (PID=50187) to work on /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py
+[2025-11-17T19:43:38.394-0300] {processor.py:830} INFO - Processing file /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py for tasks to queue
+[2025-11-17T19:43:38.394-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:43:38.394-0300] {dagbag.py:545} INFO - Filling up the DagBag from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py
+[2025-11-17T19:43:38.396-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:43:38.395-0300] {dagbag.py:355} ERROR - Failed to import: /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py", line 124
+    from __future__ import annotations
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: from __future__ imports must occur at the beginning of the file
+[2025-11-17T19:43:38.396-0300] {processor.py:842} WARNING - No viable dags retrieved from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py
+[2025-11-17T19:43:38.462-0300] {processor.py:183} INFO - Processing /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py took 0.070 seconds
+[2025-11-17T19:44:31.777-0300] {processor.py:161} INFO - Started process (PID=50799) to work on /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py
+[2025-11-17T19:44:31.778-0300] {processor.py:830} INFO - Processing file /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py for tasks to queue
+[2025-11-17T19:44:31.778-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:44:31.778-0300] {dagbag.py:545} INFO - Filling up the DagBag from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py
+[2025-11-17T19:44:31.780-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:44:31.779-0300] {dagbag.py:355} ERROR - Failed to import: /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py", line 124
+    from __future__ import annotations
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: from __future__ imports must occur at the beginning of the file
+[2025-11-17T19:44:31.780-0300] {processor.py:842} WARNING - No viable dags retrieved from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py
+[2025-11-17T19:44:31.839-0300] {processor.py:183} INFO - Processing /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py took 0.063 seconds
+[2025-11-17T19:49:34.615-0300] {processor.py:161} INFO - Started process (PID=52003) to work on /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py
+[2025-11-17T19:49:34.615-0300] {processor.py:830} INFO - Processing file /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py for tasks to queue
+[2025-11-17T19:49:34.616-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:49:34.616-0300] {dagbag.py:545} INFO - Filling up the DagBag from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py
+[2025-11-17T19:49:34.617-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:49:34.617-0300] {dagbag.py:355} ERROR - Failed to import: /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py", line 124
+    from __future__ import annotations
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: from __future__ imports must occur at the beginning of the file
+[2025-11-17T19:49:34.618-0300] {processor.py:842} WARNING - No viable dags retrieved from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py
+[2025-11-17T19:49:34.673-0300] {processor.py:183} INFO - Processing /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_prep_entrega1.py took 0.059 seconds

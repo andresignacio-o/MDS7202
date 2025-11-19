@@ -1,0 +1,112 @@
+[2025-11-17T19:38:26.467-0300] {processor.py:161} INFO - Started process (PID=48298) to work on /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+[2025-11-17T19:38:26.468-0300] {processor.py:830} INFO - Processing file /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py for tasks to queue
+[2025-11-17T19:38:26.468-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:38:26.468-0300] {dagbag.py:545} INFO - Filling up the DagBag from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+[2025-11-17T19:38:26.537-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:38:26.536-0300] {dagbag.py:355} ERROR - Failed to import: /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py", line 5, in <module>
+    import pandas as pd
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/__init__.py", line 22, in <module>
+    from pandas.compat import is_numpy_dev as _is_numpy_dev  # pyright: ignore # noqa:F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/compat/__init__.py", line 25, in <module>
+    from pandas.compat.numpy import (
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/compat/numpy/__init__.py", line 4, in <module>
+    from pandas.util.version import Version
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/util/__init__.py", line 2, in <module>
+    from pandas.util._decorators import (  # noqa:F401
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/util/_decorators.py", line 14, in <module>
+    from pandas._libs.properties import cache_readonly
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/_libs/__init__.py", line 13, in <module>
+    from pandas._libs.interval import Interval
+  File "pandas/_libs/interval.pyx", line 1, in init pandas._libs.interval
+ValueError: numpy.dtype size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject
+[2025-11-17T19:38:26.538-0300] {processor.py:842} WARNING - No viable dags retrieved from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+[2025-11-17T19:38:26.567-0300] {processor.py:183} INFO - Processing /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py took 0.101 seconds
+[2025-11-17T19:40:56.061-0300] {processor.py:161} INFO - Started process (PID=48598) to work on /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+[2025-11-17T19:40:56.062-0300] {processor.py:830} INFO - Processing file /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py for tasks to queue
+[2025-11-17T19:40:56.063-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:40:56.063-0300] {dagbag.py:545} INFO - Filling up the DagBag from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+[2025-11-17T19:40:56.131-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:40:56.130-0300] {dagbag.py:355} ERROR - Failed to import: /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py", line 5, in <module>
+    import pandas as pd
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/__init__.py", line 22, in <module>
+    from pandas.compat import is_numpy_dev as _is_numpy_dev  # pyright: ignore # noqa:F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/compat/__init__.py", line 25, in <module>
+    from pandas.compat.numpy import (
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/compat/numpy/__init__.py", line 4, in <module>
+    from pandas.util.version import Version
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/util/__init__.py", line 2, in <module>
+    from pandas.util._decorators import (  # noqa:F401
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/util/_decorators.py", line 14, in <module>
+    from pandas._libs.properties import cache_readonly
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pandas/_libs/__init__.py", line 13, in <module>
+    from pandas._libs.interval import Interval
+  File "pandas/_libs/interval.pyx", line 1, in init pandas._libs.interval
+ValueError: numpy.dtype size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject
+[2025-11-17T19:40:56.131-0300] {processor.py:842} WARNING - No viable dags retrieved from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+[2025-11-17T19:40:56.160-0300] {processor.py:183} INFO - Processing /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py took 0.100 seconds
+[2025-11-17T19:42:24.671-0300] {processor.py:161} INFO - Started process (PID=48934) to work on /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+[2025-11-17T19:42:24.672-0300] {processor.py:830} INFO - Processing file /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py for tasks to queue
+[2025-11-17T19:42:24.672-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:42:24.672-0300] {dagbag.py:545} INFO - Filling up the DagBag from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+[2025-11-17T19:42:24.675-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:42:24.674-0300] {dagbag.py:355} ERROR - Failed to import: /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py", line 6, in <module>
+    from .config import RAW_DATA_DIR, PROCESSED_DATA_DIR, TARGET_COL, WEEK_COL, ID_COLS
+ImportError: attempted relative import with no known parent package
+[2025-11-17T19:42:24.675-0300] {processor.py:842} WARNING - No viable dags retrieved from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+[2025-11-17T19:42:24.735-0300] {processor.py:183} INFO - Processing /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py took 0.065 seconds
+[2025-11-17T19:43:44.587-0300] {processor.py:161} INFO - Started process (PID=50267) to work on /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+[2025-11-17T19:43:44.587-0300] {processor.py:830} INFO - Processing file /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py for tasks to queue
+[2025-11-17T19:43:44.588-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:43:44.588-0300] {dagbag.py:545} INFO - Filling up the DagBag from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+[2025-11-17T19:43:44.589-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:43:44.588-0300] {dagbag.py:355} ERROR - Failed to import: /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py", line 6, in <module>
+    from .config import RAW_DATA_DIR, PROCESSED_DATA_DIR, TARGET_COL, WEEK_COL, ID_COLS
+ImportError: attempted relative import with no known parent package
+[2025-11-17T19:43:44.589-0300] {processor.py:842} WARNING - No viable dags retrieved from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+[2025-11-17T19:43:44.650-0300] {processor.py:183} INFO - Processing /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py took 0.065 seconds
+[2025-11-17T19:44:40.940-0300] {processor.py:161} INFO - Started process (PID=50815) to work on /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+[2025-11-17T19:44:40.941-0300] {processor.py:830} INFO - Processing file /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py for tasks to queue
+[2025-11-17T19:44:40.941-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:44:40.941-0300] {dagbag.py:545} INFO - Filling up the DagBag from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+[2025-11-17T19:44:40.942-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:44:40.942-0300] {dagbag.py:355} ERROR - Failed to import: /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py", line 6, in <module>
+    from .config import RAW_DATA_DIR, PROCESSED_DATA_DIR, TARGET_COL, WEEK_COL, ID_COLS
+ImportError: attempted relative import with no known parent package
+[2025-11-17T19:44:40.942-0300] {processor.py:842} WARNING - No viable dags retrieved from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+[2025-11-17T19:44:41.003-0300] {processor.py:183} INFO - Processing /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py took 0.064 seconds
+[2025-11-17T19:49:43.871-0300] {processor.py:161} INFO - Started process (PID=52028) to work on /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+[2025-11-17T19:49:43.872-0300] {processor.py:830} INFO - Processing file /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py for tasks to queue
+[2025-11-17T19:49:43.872-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:49:43.872-0300] {dagbag.py:545} INFO - Filling up the DagBag from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+[2025-11-17T19:49:43.873-0300] {logging_mixin.py:188} INFO - [2025-11-17T19:49:43.873-0300] {dagbag.py:355} ERROR - Failed to import: /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py", line 6, in <module>
+    from .config import RAW_DATA_DIR, PROCESSED_DATA_DIR, TARGET_COL, WEEK_COL, ID_COLS
+ImportError: attempted relative import with no known parent package
+[2025-11-17T19:49:43.873-0300] {processor.py:842} WARNING - No viable dags retrieved from /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py
+[2025-11-17T19:49:43.932-0300] {processor.py:183} INFO - Processing /Users/andresignacio/Desktop/Semestre X.nosync/Lab/Laboratorios/Proyecto/Entrega 2/airflow/dags/utils/data_preprocessing.py took 0.062 seconds

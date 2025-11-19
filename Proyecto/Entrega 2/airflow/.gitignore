@@ -1,0 +1,8 @@
+.venv/
+*.logs/
+*.pyc
+*.log/
+
+airflow_home/logs/
+airflow_home/*.pid
+airflow_home/airflow.db
