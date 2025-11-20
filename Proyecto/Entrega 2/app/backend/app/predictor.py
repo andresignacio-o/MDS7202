@@ -23,26 +23,69 @@ class ModelPredictor:
             raise Exception(f"❌ Error al cargar el modelo: {e}")
 
     def preprocess_data(self, data: List[Dict[str, Any]]) -> pd.DataFrame:
-        """Convierte la lista de diccionarios (datos de entrada) en un DataFrame."""
         try:
             df = pd.DataFrame(data)
             
-            # --- LÓGICA ESPECÍFICA DE PREPROCESAMIENTO ---
+            # ⚠️ DEFINIR VARIABLES (Basado en la última corrección, no excluimos features)
+            ID_COLS = [] 
+            TARGET_COL = "compra_binaria" 
+            WEEK_COL = "week" 
             
-            # 1. Asegurar tipos (aunque Pydantic ya lo hizo, es buena práctica)
-            df['client_id'] = df['client_id'].astype(int)
-            df['product_id'] = df['product_id'].astype(int)
+            # 1. Renombrar las columnas de ENTRADA
+            df = df.rename(columns={
+                'client_id': 'order_id',     
+                'product_id': 'items',       
+                'date': 'purchase_date'      
+            })
             
-            # 2. Manejar la fecha (ej. convertir el string a un formato que el modelo entienda)
-            df['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d')
-            df = df.drop(columns=['date']) # Si el modelo no usa la columna original
+            # 2. Replicar la creación de la columna WEEK_COL (si aplica, para simular el panel)
+            df["purchase_date"] = pd.to_datetime(df["purchase_date"], format='%Y-%m-%d', errors="coerce")
+            df[WEEK_COL] = df["purchase_date"].dt.to_period("W").apply(lambda r: r.start_time)
+            
+            
+            # 🔥 CRÍTICO: REPLICAR CONVERSIÓN DE DATETIME A INT64 🔥
+            # Esto replica el .view("int64") del DAG para la inferencia.
+            datetime_cols = [c for c in df.columns if c != WEEK_COL and pd.api.types.is_datetime64_any_dtype(df[c])]
+            for col in datetime_cols:
+                # Convertir el objeto datetime a su representación numérica (int64)
+                df[col] = df[col].view("int64") 
 
+
+            # 3. Identificar y aplicar One-Hot Encoding (si aplica)
+            # Si no hay categóricas, no pasa nada. Si las hay, esto es CRÍTICO.
+            categorical_cols = [c for c in df.columns if df[c].dtype == "object" and c not in ID_COLS]
+            df_proc = pd.get_dummies(df, columns=categorical_cols, drop_first=True)
+
+
+            # 4. Seleccionar las features finales.
+            # Excluimos las columnas que el modelo NO usó (el target y la semana, si aplica)
+            feature_cols_final = [
+                c for c in df_proc.columns if c not in ID_COLS + [TARGET_COL, WEEK_COL]
+            ]
             
-            print("Datos de entrada procesados a DataFrame.")
-            return df
+            
+            # 5. 🔥 PRUEBA DE ORDEN FINAL 🔥
+            # Intentaremos el orden más lógico basado en la estructura de entrada:
+            # order_id (del client_id), items (del product_id), purchase_date (procesada)
+            
+            # Primero, aseguramos que todas las features requeridas estén en la lista
+            required_cols = ['order_id', 'items', 'purchase_date'] 
+            
+            # Filtramos y Ordenamos la lista de features generadas para coincidir con el orden esperado.
+            # PRUEBA 2: order_id, items, purchase_date (la más probable)
+            orden_a_probar = ['order_id', 'purchase_date', 'items'] 
+            
+            # Generamos la lista final manteniendo el orden y excluyendo el resto de features generadas
+            df_final = df_proc[orden_a_probar]
+            
+            # Nota: Si el modelo fue entrenado con MÁS columnas (por el one-hot encoding),
+            # esta línea debe ser adaptada para incluir esas columnas.
+            
+            print(f"Columnas finales: {list(df_final.columns)}")
+            return df_final
+        
         except Exception as e:
             raise ValueError(f"❌ Error en el preprocesamiento de datos: {e}")
-
 
     def predict(self, data: List[Dict[str, Any]]) -> List[float]:
         """Realiza la predicción sobre los datos de entrada."""
