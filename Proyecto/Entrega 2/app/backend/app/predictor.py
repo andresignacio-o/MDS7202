@@ -31,8 +31,8 @@ class ModelPredictor:
             
             #Cambios de algunos nombres
             df = df.rename(columns={
-                'client_id': 'order_id',     
-                'product_id': 'items',       
+                'client_id': 'customer_id',     
+                'product_id': 'product_id',       
                 'date': 'purchase_date'      
             })
             
@@ -57,7 +57,7 @@ class ModelPredictor:
                 c for c in df_proc.columns if c not in ID_COLS + [TARGET_COL, WEEK_COL]
             ]
 
-            orden = ['order_id', 'purchase_date', 'items'] 
+            orden = ['customer_id', 'product_id', 'purchase_date'] 
             
             # Generamos la lista final manteniendo el orden y excluyendo el resto de features generadas
             df_final = df_proc[orden]
