@@ -13,7 +13,8 @@ export AIRFLOW__CORE__LOAD_EXAMPLES=False
 export AIRFLOW__CORE__DAGS_FOLDER=$(pwd)/dags
 export PYTHONPATH=$(pwd)/dags:$PYTHONPATH 
 
-Inicializa la metadata si es la primera vez o si borras airflow_home: airflow db init.
+Inicializa la metadata si es la primera vez o si borras airflow_home: airflow db init
+
 Si ya tienes airflow_home/airflow.db, puedes hacer: airflow db upgrade para aplicar migraciones.
 
 Crea un usuario admin si aún no existe:
