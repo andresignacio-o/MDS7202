@@ -59,6 +59,10 @@ def preprocess_data(raw_paths: dict) -> dict:
         df[WEEK_COL] = df["purchase_date"].dt.to_period("W").apply(lambda r: r.start_time)
         df[TARGET_COL] = (df["items"] > 0).astype(int)
 
+    # Reducimos columnas al esquema solicitado para el modelo: ids, fecha, semana y target.
+    keep_cols = [col for col in ["customer_id", "product_id", "purchase_date", WEEK_COL, TARGET_COL] if col in df.columns]
+    df = df[keep_cols]
+
     df = df.dropna(subset=[TARGET_COL])
     df = df.sort_values(WEEK_COL)
 
@@ -66,14 +70,15 @@ def preprocess_data(raw_paths: dict) -> dict:
     new_batch = df[df[WEEK_COL] == max_week].copy()
     reference = df[df[WEEK_COL] < max_week].copy()
 
-    categorical_cols = [c for c in df.columns if df[c].dtype == "object" and c not in ID_COLS]
+    categorical_cols = [c for c in df.columns if df[c].dtype == "object" and c not in [TARGET_COL, WEEK_COL]]
 
     def transform(d):
         d = d.copy()
         datetime_cols = [c for c in d.columns if c != WEEK_COL and pd.api.types.is_datetime64_any_dtype(d[c])]
         for col in datetime_cols:
             d[col] = d[col].view("int64")
-        d = pd.get_dummies(d, columns=categorical_cols, drop_first=True)
+        if categorical_cols:
+            d = pd.get_dummies(d, columns=categorical_cols, drop_first=True)
         return d
 
     reference_proc = transform(reference)
@@ -86,7 +91,7 @@ def preprocess_data(raw_paths: dict) -> dict:
     reference_proc.to_parquet(ref_path, index=False)
     new_batch_proc.to_parquet(new_batch_path, index=False)
 
-    feature_cols = [c for c in reference_proc.columns if c not in ID_COLS + [TARGET_COL, WEEK_COL]]
+    feature_cols = [c for c in reference_proc.columns if c not in [TARGET_COL, WEEK_COL]]
 
     return {
         "reference_path": str(ref_path),

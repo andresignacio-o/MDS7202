@@ -1,16 +1,12 @@
 # airflow/dags/utils/training.py
 
-import logging
 from pathlib import Path
 
-import matplotlib
 from sklearn.metrics import roc_auc_score
 import joblib
 
 from .config import TARGET_COL, ID_COLS, MLFLOW_EXPERIMENT_NAME, WEEK_COL, MODEL_ARTIFACT_PATH
 from .mlflow_utils import setup_mlflow
-
-matplotlib.use("Agg")
 
 
 def _load_data_for_training(reference_path: str):
@@ -18,7 +14,7 @@ def _load_data_for_training(reference_path: str):
     from sklearn.model_selection import train_test_split
 
     df = pd.read_parquet(reference_path)
-    drop_cols = ID_COLS + [TARGET_COL]
+    drop_cols = [TARGET_COL]
     if WEEK_COL in df.columns:
         drop_cols.append(WEEK_COL)
     X = df.drop(columns=drop_cols, errors="ignore")
@@ -29,18 +25,20 @@ def _load_data_for_training(reference_path: str):
 def _objective(trial, reference_path: str):
     X_train, X_val, y_train, y_val = _load_data_for_training(reference_path)
 
-    n_estimators = trial.suggest_int("n_estimators", 50, 300)
-    max_depth = trial.suggest_int("max_depth", 3, 20)
-    min_samples_split = trial.suggest_int("min_samples_split", 2, 10)
+    # Rango más acotado para acelerar entrenamiento dentro del timeout del task.
+    n_estimators = trial.suggest_int("n_estimators", 50, 150)
+    max_depth = trial.suggest_int("max_depth", 3, 12)
+    min_samples_split = trial.suggest_int("min_samples_split", 2, 6)
 
     from sklearn.ensemble import RandomForestClassifier
 
+    # n_jobs=1 para evitar forkeos dentro de procesos de Airflow (previene segfault en macOS).
     model = RandomForestClassifier(
         n_estimators=n_estimators,
         max_depth=max_depth,
         min_samples_split=min_samples_split,
         random_state=42,
-        n_jobs=-1,
+        n_jobs=1,
     )
 
     model.fit(X_train, y_train)
@@ -55,14 +53,19 @@ def run_hyperparameter_optimization(reference_path: str, n_trials: int = 20) -> 
     import optuna
     import mlflow
     import mlflow.sklearn
-    import shap
     import pandas as pd
-    import matplotlib.pyplot as plt
+    import os
 
     setup_mlflow()
 
+    # Evitar paralelismo de bajo nivel que pueda forzar más hilos.
+    os.environ["OMP_NUM_THREADS"] = "1"
+    os.environ["MKL_NUM_THREADS"] = "1"
+
     study = optuna.create_study(direction="maximize", study_name="sodai_rf_optuna")
-    study.optimize(lambda t: _objective(t, reference_path), n_trials=n_trials)
+    # Reducimos pruebas por defecto y ponemos timeout defensivo para que no mate el task.
+    n_trials = min(n_trials, 5)
+    study.optimize(lambda t: _objective(t, reference_path), n_trials=n_trials, timeout=240)
 
     best_trial = study.best_trial
     best_model = best_trial.user_attrs["model"]
@@ -72,27 +75,6 @@ def run_hyperparameter_optimization(reference_path: str, n_trials: int = 20) -> 
         mlflow.set_experiment(MLFLOW_EXPERIMENT_NAME)
         mlflow.log_params(best_trial.params)
         mlflow.log_metric("best_val_auc", best_trial.value)
-
-        # SHAP
-        X_train, X_val, y_train, y_val = _load_data_for_training(reference_path)
-        explainer = shap.TreeExplainer(best_model)
-        shap_values = explainer.shap_values(X_val)
-        shap_array = shap_values[1] if isinstance(shap_values, list) else shap_values
-
-        if shap_array.shape[1] == X_val.shape[1]:
-            shap.summary_plot(shap_array, X_val, show=False)
-            shap_plot_path = Path("shap_summary.png")
-            shap_plot_path.parent.mkdir(exist_ok=True, parents=True)
-            plt.savefig(shap_plot_path, bbox_inches="tight")
-            plt.close()
-
-            mlflow.log_artifact(str(shap_plot_path))
-        else:
-            logging.warning(
-                "Skipping SHAP summary plot: shap_values shape %s does not match feature shape %s",
-                shap_array.shape,
-                X_val.shape,
-            )
 
         mlflow.sklearn.log_model(best_model, artifact_path="model", registered_model_name="sodai_drinks_model")
 

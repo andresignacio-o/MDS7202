@@ -1,1 +1,1 @@
-# Utility package for DAG tasks.
+"""Utilities package for Airflow DAGs."""
