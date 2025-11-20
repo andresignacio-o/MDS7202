@@ -23,7 +23,7 @@ def generate_predictions(new_batch_path: str, model_uri: str, next_week: str) ->
     df = pd.read_parquet(new_batch_path)
     model = load_model(model_uri)
 
-    feature_cols = [c for c in df.columns if c not in ID_COLS + [TARGET_COL, WEEK_COL]]
+    feature_cols = [c for c in df.columns if c not in [TARGET_COL, WEEK_COL]]
 
     X = df[feature_cols]
     preds_proba = model.predict_proba(X)[:, 1]

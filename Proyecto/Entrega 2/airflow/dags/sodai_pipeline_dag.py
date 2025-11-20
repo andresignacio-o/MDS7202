@@ -88,6 +88,7 @@ with DAG(
     retrain = PythonOperator(
         task_id="retrain_model",
         python_callable=retrain_model_task,
+        execution_timeout=timedelta(minutes=15),
     )
 
     skip_retrain = EmptyOperator(task_id="skip_retrain")
