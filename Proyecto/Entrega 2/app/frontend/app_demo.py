@@ -36,7 +36,7 @@ def predict_from_api(client_id: int, product_id: int, date: str) -> str:
         # Asumimos una predicción binaria o de probabilidad
         prediction_value = predictions[0]
         
-        # Lógica de interpretación de la predicción (Ajustar según tu modelo)
+        # Lógica de interpretación de la predicción 
         if prediction_value >= 0.5:
             result_text = "Cliente va a comprar"
             emoji = "✅"
@@ -81,7 +81,7 @@ input_components = [
 ]
 
 iface = gr.Interface(
-    # Usamos la función REAL
+
     fn=predict_from_api, 
     inputs=input_components, 
     outputs=gr.Markdown(label="Resultado de la Predicción"),

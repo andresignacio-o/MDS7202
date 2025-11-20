@@ -2,8 +2,7 @@ import gradio as gr
 import requests
 from typing import List
 
-# URL de la API de predicción (asumiendo que los contenedores están en la misma red Docker)
-# Si se ejecuta localmente sin Docker Compose, usar http://localhost:8000
+# URL de la API de predicción 
 FASTAPI_URL = "http://backend:8000/predict" 
 
 def predict_from_api(client_id: int, product_id: int, date: str) -> str:
@@ -18,7 +17,7 @@ def predict_from_api(client_id: int, product_id: int, date: str) -> str:
                 "client_id": client_id,
                 "product_id": product_id,
                 "date": date
-                # Si tu modelo tiene más features, agrégalas aquí
+                
             }
         ]
     }
@@ -38,8 +37,10 @@ def predict_from_api(client_id: int, product_id: int, date: str) -> str:
         # 4. Formatear el resultado de forma clara
         prediction_value = predictions[0]
         
-        # Ejemplo de formato de salida:
-        return f"✅ **Predicción Exitosa**\n\nEl valor predicho para esta instancia es: **{prediction_value:.4f}**"
+        if prediction_value >= 0.5:
+            return f"✅ **Predicción Exitosa**\n\nEl cliente comprara el producto en la fecha dada"
+        elif prediction_value < 0.5:
+            return f"✅ **Predicción Exitosa**\n\nEl cliente NO comprara el producto en la fecha dada"
 
     except requests.exceptions.ConnectionError:
         return f"❌ Error de Conexión: No se pudo conectar al servidor de predicciones en {FASTAPI_URL}. Asegúrate de que el backend esté corriendo."
@@ -61,7 +62,7 @@ Esta interfaz le permite interactuar con el modelo de Machine Learning entrenado
 3. El resultado aparecerá en el cuadro de salida.
 """
 
-# Configuración de los componentes de entrada (ajustar según tu modelo)
+# Configuración de los componentes de entrada
 input_components = [
     gr.Number(label="Id del cliente (Introducir un entero)", value=61353),
     gr.Number(label="Id del producto (Introducir un entero)", value=411145),

@@ -8,12 +8,11 @@ from .predictor import predictor
 app = FastAPI(title="MLOps Prediction API", version="1.0.0")
 
 # Definición del esquema de datos de entrada usando Pydantic
-# Ajustar este esquema según las características reales de tu dataset
+# Ajustar este esquema según las características reales del dataset
 class DataPoint(BaseModel):
     client_id: int
     product_id: int
     date: str
-    # Añadir todas las features del modelo aquí
 
 class PredictionRequest(BaseModel):
     """Esquema para el cuerpo de la solicitud (puede contener uno o múltiples datapoints)."""
