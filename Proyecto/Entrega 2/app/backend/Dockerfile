@@ -1,6 +1,9 @@
 # Utiliza una imagen base oficial de Python
 FROM python:3.10-slim
 
+# Avoid PyArrow extension re-registration errors inside the container
+ENV PYARROW_IGNORE_DUPLICATE_EXTENSIONS=1
+
 # Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
 

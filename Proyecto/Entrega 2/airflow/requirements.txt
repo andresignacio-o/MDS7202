@@ -1,6 +1,6 @@
 apache-airflow==2.9.3
 pandas
-pyarrow
+pyarrow>=16.1.0
 scikit-learn
 optuna
 mlflow

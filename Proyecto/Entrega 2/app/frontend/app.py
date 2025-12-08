@@ -75,8 +75,7 @@ iface = gr.Interface(
     inputs=input_components, 
     outputs=gr.Markdown(label="Resultado de la Predicción"),
     title="Sistema de Predicción MLOps",
-    description=explanation_text,
-    allow_flagging="never"
+    description=explanation_text
 )
 
 # Esto es necesario para que Gradio funcione correctamente en un contenedor Docker

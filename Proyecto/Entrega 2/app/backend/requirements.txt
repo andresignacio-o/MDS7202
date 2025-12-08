@@ -3,3 +3,4 @@ uvicorn
 pandas
 scikit-learn  
 mlflow 
+pyarrow>=16.1.0
